@@ -1,7 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@ANGULAR/common/http';
-import { LoginService } from './../../services/login.service';
-
+import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +11,9 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const token = localStorage.getItem('token');
-    //const loginService = this.injector.get(LoginService);
     const tokenRequest = req.clone({
       setHeaders: {
-        Authorization: token ? token : 'DFGDF'
+        Authorization: token ? token : ''
       }
     });
     return next.handle(tokenRequest);

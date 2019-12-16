@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public userDetails: any = {};
+
+
+  constructor() {
+    this.userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
+   }
 
   ngOnInit() {
   }

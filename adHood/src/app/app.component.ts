@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'adHood';
+
+
+  private logout(){
+    sessionStorage.clear();
+  }
+
+
+  public openNav() {
+    document.getElementById('mySidenav').style.width = '250px';
+  }
+
+  public closeNav() {
+    document.getElementById('mySidenav').style.width = '0';
+  }
 }
