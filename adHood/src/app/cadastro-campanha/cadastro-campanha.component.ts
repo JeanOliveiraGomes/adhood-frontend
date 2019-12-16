@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { ClienteEntity } from '../entidades/clienteEntity';
 
 @Component({
   selector: 'app-cadastro-campanha',
@@ -8,14 +9,14 @@ import { FormBuilder } from '@angular/forms';
 })
 export class CadastroCampanhaComponent {
 
-  private cliente: any  = {};
+  private cliente: ClienteEntity = new ClienteEntity();
 
   constructor(private fb: FormBuilder) { }
 
   form = this.fb.group({
     nome: [this.cliente.nome],
     segmento: [this.cliente.segmento],
-    endereco: [this.cliente.asdf],
+    endereco: [this.cliente.endereco],
   });
 
 }
