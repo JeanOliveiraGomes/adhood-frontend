@@ -9,6 +9,7 @@ import { TokenInterceptorService } from './apiProvider/interceptor/token-interce
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { CadastroCampanhaComponent } from './cadastro-campanha/cadastro-campanha.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CadastroCampanhaComponent } from './cadastro-campanha/cadastro-campanha
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AutocompleteLibModule
   ],
   providers: [
     {

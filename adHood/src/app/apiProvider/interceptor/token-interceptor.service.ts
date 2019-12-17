@@ -10,7 +10,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const tokenRequest = req.clone({
       setHeaders: {
         Authorization: token ? token : ''

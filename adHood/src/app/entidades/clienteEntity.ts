@@ -1,12 +1,14 @@
 import { GenericEntity } from "./genericEntity";
 import { EnderecoEntity } from "./enderecoEntity";
+import { PessoaEntity } from './pessoaEntity';
 
 export class ClienteEntity extends GenericEntity {
     nome: string;
     segmento: string;
-    endereco: EnderecoEntity;
+    endereco: EnderecoEntity[];
     porte: string;
     status: boolean;
+    consultor: PessoaEntity;
 
 
     constructor() {
@@ -14,6 +16,6 @@ export class ClienteEntity extends GenericEntity {
         this.nome = '';
         this.segmento = '';
         this.porte = '';
-        this.endereco = new EnderecoEntity();
+        this.endereco = [];
     }
 }
