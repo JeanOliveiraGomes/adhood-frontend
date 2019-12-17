@@ -17,4 +17,14 @@ export class ClienteService {
     return this.api
       .post(`${this.path}`, cliente);
   }
+
+  public findAll(): Observable<any> {
+    return this.api
+      .get(`${this.path}`);
+  }
+
+  public delete(id: number): Observable<any> {
+    return this.api
+      .get(`${this.path}/delete?id=${id}`);
+  }
 }

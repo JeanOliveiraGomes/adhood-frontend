@@ -1,39 +1,101 @@
 <div class="container">
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Consultor</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Segmento</th>
+        <th scope="col">status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of clienteList">
+        <th scope="row">{{item.consultor ? item.consultor.nome : 'Não Especificado'}}</th>
+        <td>{{item.nome}}</td>
+        <td>{{item.segmento}}</td>
+        <td>{{item.status}}</td>
+        <td>
+          <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="deletarCliente(item.id)" >Deletar</button>
+        </td>
+      </tr> 
+    </tbody>
+  </table>
   
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <br><b><h1>CADASTRO DE CLIENTE</h1></b><br>
+    <br><b><h3>CADASTRO DE CLIENTE {{cliente.id ? '- Editando Cliente' : '- Novo Cliente'}}</h3></b><br>
+
+    <div >
+      <label>Status</label><br>
+      <label class="switch">
+        <input type="checkbox" formControlName="status" [(ngModel)]="cliente.status" checked>
+        <span class="slider round"></span>
+      </label>
+    </div>
     <div class="form-group">
-      <label for="exampleFormControlInput1">Nome</label>
+      <label>Nome*</label>
       <input formControlName="nome" [(ngModel)]="cliente.nome" type="text" class="form-control" id="nome" placeholder="name@example.com">
     </div>
     <div class="form-group">
-      <label for="exampleFormControlInput1">Segmento</label>
+      <label>Segmento*</label>
       <input formControlName="segmento"  [(ngModel)]="cliente.segmento"type="text" class="form-control" id="segmento" placeholder="name@example.com">
     </div>
     <div class="form-group">
-      <label for="exampleFormControlInput1">Bairro</label>
+      <label>Bairro*</label>
       <input formControlName="bairro" [(ngModel)]="endereco.bairro" type="text" class="form-control" id="bairro" placeholder="name@example.com">
     </div>
     <div class="form-group">
-      <label for="exampleFormControlInput1">CEP</label>
+      <label>CEP*</label>
       <input formControlName="cep" [(ngModel)]="endereco.cep" type="text" class="form-control" id="cep" placeholder="name@example.com">
     </div>
     <div class="form-group">
-      <label for="exampleFormControlInput1">Complemento</label>
+      <label>Complemento</label>
       <input formControlName="complemento" [(ngModel)]="endereco.complemento" type="text" class="form-control" id="complemento" placeholder="name@example.com">
     </div>
     <div class="form-group">
-      <label for="exampleFormControlInput1">UF</label>
-      <input formControlName="uf" [(ngModel)]="endereco.uf" type="text" class="form-control" id="uf" placeholder="name@example.com">
+      <label>UF*</label>
+      <select formControlName="uf" [(ngModel)]="endereco.uf" class="form-control" id="porte">
+        <option value="AC">AC</option>
+        <option value="AL">AL</option>
+        <option value="AP">AP</option>
+        <option value="AM">AM</option>
+        <option value="BA">BA</option>
+        <option value="CE">CE</option>
+        <option value="DF">DF</option>
+        <option value="ES">ES</option>
+        <option value="GO">GO</option>
+        <option value="MA">MA</option>
+        <option value="MT">MT</option>
+        <option value="MS">MS</option>
+        <option value="MG">MG</option>
+        <option value="PA">PA</option>
+        <option value="PB">PB</option>
+        <option value="PR">PR</option>
+        <option value="PE">PE</option>
+        <option value="PI">PI</option>
+        <option value="RJ">RJ</option>
+        <option value="RN">RN</option>
+        <option value="RS">RS</option>
+        <option value="RO">RO</option>
+        <option value="RR">RR</option>
+        <option value="SC">SC</option>
+        <option value="SP">SP</option>
+        <option value="SE">SE</option>
+        <option value="TO">TO</option>
+      </select>
     </div>
+
     <div class="form-group">
-      <label for="exampleFormControlInput1">Consultor</label>
+      <label  >Consultor</label>
       <div class="ng-autocomplete">
         <ng-autocomplete 
           formControlName="consultor"
           [(ngModel)]="cliente.consultor"
           [data]="consultores"
           (inputChanged)='onChangeSearch($event)'
+          (inputCleared)="clenConsultor()"
           [searchKeyword]="keyword"
           [itemTemplate]="itemTemplate"
           [notFoundTemplate]="notFoundTemplate">                                 
@@ -49,13 +111,14 @@
         </div>
     </div>
     <div class="form-group">
-      <label for="exampleFormControlSelect1">Porte</label>
+      <label for="exampleFormControlSelect1">Porte*</label>
       <select formControlName="porte" [(ngModel)]="cliente.porte" class="form-control" id="porte">
         <option value="MICROEMPREENDEDOR">Micro-Empreendedor</option>
         <option value="EMPRESA_PEQUENO_PORTE">Empresa Pequena</option>
         <option value="MULTINACIONAL">Multinacional</option>
       </select>
     </div>
-    <button type="button" class="btn btn-primary" type="submit">Salvar Cliente</button><br><br><br>
+    <button type="button" class="btn btn-primary" [disabled]="!form.valid" type="submit">{{cliente.id ? 'Salvar Cliente Editado' : 'Criar Cliente'}}</button> 
+    <button *ngIf="cliente.id" type="button" class="btn btn-success" (click)="limparForm()" >CRIA NOVO</button><br><br><br>
   </form>
 </div>

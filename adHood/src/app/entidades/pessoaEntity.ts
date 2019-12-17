@@ -11,6 +11,7 @@ export class PessoaEntity extends GenericEntity {
     telefone: string;
     endereco: EnderecoEntity;
     veiculo: VeiculoEntity[];
+    perfil: PerfilEntity[];
     isAccountNonExpired: boolean;
     isAccountNonLocked: boolean;
     isCredentialsNonExpired: boolean;
