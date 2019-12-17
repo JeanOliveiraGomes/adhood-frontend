@@ -8,15 +8,16 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService } from './apiProvider/interceptor/token-interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { CadastroCampanhaComponent } from './cadastro-campanha/cadastro-campanha.component';
+import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { LoggedInGuard } from './config/LoggedInGuard';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    CadastroCampanhaComponent,
+    CadastroClienteComponent,
   ],
   imports: [
     HttpClientModule,
@@ -26,7 +27,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     ReactiveFormsModule,
     AutocompleteLibModule
   ],
-  providers: [
+  providers: [LoggedInGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

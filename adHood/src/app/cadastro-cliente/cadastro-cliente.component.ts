@@ -6,13 +6,14 @@ import { ClienteService } from '../services/cienteService/cliente.service';
 import { EnderecoEntity } from '../entidades/enderecoEntity';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { PessoaEntity } from '../entidades/pessoaEntity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-campanha',
-  templateUrl: './cadastro-campanha.component.html',
-  styleUrls: ['./cadastro-campanha.component.scss']
+  templateUrl: './cadastro-cliente.component.html',
+  styleUrls: ['./cadastro-cliente.component.scss']
 })
-export class CadastroCampanhaComponent {
+export class CadastroClienteComponent {
   private keyword = 'nome';
 
   private form: FormGroup;
@@ -24,7 +25,8 @@ export class CadastroCampanhaComponent {
 
   private clienteList: ClienteEntity[] = [];
 
-  constructor(private fb: FormBuilder, private pessoaService: PessoaService, private clienteService: ClienteService) {
+  constructor(private fb: FormBuilder,
+              private pessoaService: PessoaService, private clienteService: ClienteService) {
     this.buildForm();
     this.popularClientes();
   }
