@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ClienteEntity } from '../entidades/clienteEntity';
 
 @Component({
@@ -14,9 +14,18 @@ export class CadastroCampanhaComponent {
   constructor(private fb: FormBuilder) { }
 
   form = this.fb.group({
-    nome: [this.cliente.nome],
+    nome: [this.cliente.nome, Validators.required],
     segmento: [this.cliente.segmento],
-    endereco: [this.cliente.endereco],
+    bairro: [this.cliente.endereco.bairro],
+    cep: [this.cliente.endereco.cep],
+    complemento: [this.cliente.endereco.complemento],
+    uf: [this.cliente.endereco.uf],
+    status: [this.cliente.status],
+    porte: [this.cliente.porte]
   });
+
+  private onSubmit() {
+
+  }
 
 }

@@ -1,21 +1,37 @@
 <div class="container">
   
-<form>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
     <b><h1>CADASTRO DE CLIENTE</h1></b><br>
     <div class="form-group">
       <label for="exampleFormControlInput1">Nome</label>
-      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+      <input formControlName="nome" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
     </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Segmento</label>
-      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+      <input formControlName="segmento" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Bairro</label>
+      <input formControlName="bairro" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">CEP</label>
+      <input formControlName="cep" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Complemento</label>
+      <input formControlName="complemento" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">UF</label>
+      <input formControlName="uf" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
     </div>
     <div class="form-group">
       <label for="exampleFormControlSelect1">Porte</label>
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>MICROEMPREENDEDOR</option>
-        <option>EMPRESA_PEQUENO_PORTE</option>
-        <option>MULTINACIONAL</option>
+      <select formControlName="porte" class="form-control" id="exampleFormControlSelect1">
+        <option value="MICROEMPREENDEDOR">Micro-Empreendedor</option>
+        <option value="EMPRESA_PEQUENO_PORTE">Empresa Pequena</option>
+        <option value="MULTINACIONAL">Multinacional</option>
       </select>
     </div>
     <div class="form-group">
@@ -32,5 +48,6 @@
       <label for="exampleFormControlTextarea1">Example textarea</label>
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
+    <button type="button" class="btn btn-primary" type="submit">Salvar Cliente</button><br><br><br>
   </form>
 </div>
