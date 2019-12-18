@@ -10,8 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
-import { LoggedInGuard } from './config/LoggedInGuard';
+import { LoggedInGuardAdmin } from './config/LoggedInGuard';
 import { CadastroCampanhaComponent } from './cadastro-campanha/cadastro-campanha.component';
+import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CadastroCampanhaComponent } from './cadastro-campanha/cadastro-campanha
     HomeComponent,
     CadastroClienteComponent,
     CadastroCampanhaComponent,
+    CadastroPessoaComponent,
   ],
   imports: [
     HttpClientModule,
@@ -29,7 +31,7 @@ import { CadastroCampanhaComponent } from './cadastro-campanha/cadastro-campanha
     ReactiveFormsModule,
     AutocompleteLibModule
   ],
-  providers: [LoggedInGuard,
+  providers: [LoggedInGuardAdmin,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
