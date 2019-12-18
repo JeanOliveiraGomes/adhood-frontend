@@ -1,0 +1,100 @@
+<div class="container">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Cliente Nome</th>
+                <th scope="col">Data Início/ Data Fim</th>
+                <th scope="col">Valor da Campanha</th>
+                <th scope="col">status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of campanhaList">
+                <td>{{item.nome}}</td>
+                <td>{{item.dataInicio | date:'dd/MM/yyyy HH:mm:ss'}} - {{item.dataFim | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{item.valorCampanha}}</td>
+                <td>{{item.status}}</td>
+                <td>
+                    <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="deletarCampanha(item.id)">Deletar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <br><b>
+            <h3>CADASTRO DE CAMPANHA {{campanha.id ? '- EDITANDO CAMPANHA' : '- NOVA CAMPANHA'}}</h3>
+        </b><br>
+
+        <div>
+            <label>Status</label><br>
+            <label class="switch">
+                <input type="checkbox" formControlName="status" [(ngModel)]="campanha.status" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Data Início*</label>
+            <input formControlName="dataInicio" [(ngModel)]="campanha.dataInicio" type="datetime-local" name="bdaytime">
+            <label>Data Fim*</label>
+            <input formControlName="dataFim" [(ngModel)]="campanha.dataFim" type="datetime-local" name="bdaytime">
+        </div>
+        <div class="form-group">
+            <label>Nome*</label>
+            <input formControlName="nome" [(ngModel)]="campanha.nome" type="text" class="form-control" id="nome">
+        </div>
+        <div class="form-group">
+            <label>Valo da Campanha*</label><br>
+            <input formControlName="valorCampanha" [(ngModel)]="campanha.valorCampanha" type="number" step="0.01">
+        </div>
+        <div class="form-group">
+            <label>Adicinar Cliente</label>
+            <div class="ng-autocomplete">
+                <ng-autocomplete [data]="clienteList"
+                    (inputChanged)='onChangeSearch($event)' (selected)='adicionarCliente($event)' (inputCleared)="clenConsultor()" [searchKeyword]="keyword"
+                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nome"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="form-group">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Consultor</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Segmento</th>
+                    <th scope="col">status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of campanha.cliente">
+                    <th scope="row">{{item.consultor ? item.consultor.nome : 'Não Especificado'}}</th>
+                    <td>{{item.nome}}</td>
+                    <td>{{item.segmento}}</td>
+                    <td>{{item.status}}</td>
+                    <td>
+                      <button type="button" class="btn btn-danger" (click)="deletarCliente(item)">Remover</button>
+                    </td>
+                  </tr> 
+                </tbody>
+              </table>
+        </div>
+
+        <button type="button" class="btn btn-primary" [disabled]="!form.valid"
+            type="submit">{{campanha.id ? 'Salvar Cliente Editado' : 'Criar Cliente'}}</button>
+        <button *ngIf="campanha.id" type="button" class="btn btn-success" (click)="limparForm()">CRIA
+            NOVO</button><br><br><br>
+    </form>
+</div>

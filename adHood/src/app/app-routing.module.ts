@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.component';
 import { LoggedInGuard } from './config/LoggedInGuard';
+import { CadastroCampanhaComponent } from './cadastro-campanha/cadastro-campanha.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent, canActivate: [LoggedInGuard]},
   {path: 'cliente', component: CadastroClienteComponent, canActivate: [LoggedInGuard]},
+  {path: 'campanha', component: CadastroCampanhaComponent, canActivate: [LoggedInGuard]},
 ];
 
 @NgModule({

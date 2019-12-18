@@ -1,27 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/apiProvider/api.service';
 import { Observable } from 'rxjs';
-import { ClienteEntity } from 'src/app/entidades/clienteEntity';
+import { CampanhaEntity } from 'src/app/entidades/campanha';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
+export class CampanhaService {
+  private path = 'campanha';
 
-  private path = 'cliente';
+  constructor(private api: ApiService) { }
 
-  constructor( private api: ApiService ) {
-
-  }
-
-  public findByNome(nome: string): Observable<any> {
+  public save( campanha: CampanhaEntity): Observable<any> {
     return this.api
-      .get(`${this.path}/findByNome?nome=${nome}`);
-  }
-
-  public save(cliente: ClienteEntity): Observable<any> {
-    return this.api
-      .post(`${this.path}`, cliente);
+      .post(`${this.path}`,  campanha);
   }
 
   public findAll(): Observable<any> {

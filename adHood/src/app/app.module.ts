@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { CadastroClienteComponent } from './cadastro-cliente/cadastro-cliente.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { LoggedInGuard } from './config/LoggedInGuard';
+import { CadastroCampanhaComponent } from './cadastro-campanha/cadastro-campanha.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LoggedInGuard } from './config/LoggedInGuard';
     LoginComponent,
     HomeComponent,
     CadastroClienteComponent,
+    CadastroCampanhaComponent,
   ],
   imports: [
     HttpClientModule,
