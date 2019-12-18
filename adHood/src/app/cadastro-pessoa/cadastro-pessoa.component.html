@@ -3,18 +3,18 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Consultor</th>
+          <th scope="col">Email</th>
           <th scope="col">Nome</th>
-          <th scope="col">Segmento</th>
+          <th scope="col">CPF</th>
           <th scope="col">status</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of clienteList">
-          <th scope="row">{{item.consultor ? item.consultor.nome : 'Não Especificado'}}</th>
-          <td>{{item.nome}}</td>
-          <td>{{item.segmento}}</td>
+          <th scope="row">{{item.Email}}</th>
+          <td>{{item.Nome}}</td>
+          <td>{{item.CPF}}</td>
           <td>{{item.status}}</td>
           <td>
             <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
@@ -25,7 +25,7 @@
     </table>
     
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <br><b><h3>CADASTRO DE CLIENTE {{cliente.id ? '- Editando Cliente' : '- Novo Cliente'}}</h3></b><br>
+      <br><b><h3>CADASTRO DE PESSOA {{cliente.id ? '- Editando Cliente' : '- Novo Cliente'}}</h3></b><br>
   
       <div >
         <label>Status</label><br>

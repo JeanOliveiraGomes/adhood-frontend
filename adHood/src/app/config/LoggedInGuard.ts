@@ -20,8 +20,7 @@ export class LoggedInGuardAdmin implements CanActivate {
         }
         if (!logged) {
             this.router.navigate(['/']);
-        }
-        if (!isAdmin) {
+        } else if (!isAdmin) {
             this.router.navigate(['/home']);
         }
         return logged;
