@@ -6,6 +6,7 @@ import { PessoaEntity } from '../entidades/pessoaEntity';
 import { CnhEntity } from '../entidades/cnhEntity';
 import { VeiculoEntity } from '../entidades/veiculoEntity';
 import { PerfilEntity } from '../entidades/perfilEntity';
+import { MotoristaEntity } from '../entidades/motoristaEntity';
 
 @Component({
   selector: 'app-cadastro-pessoa',
@@ -99,9 +100,12 @@ public buildForm() {
 
   private editar(pessoa) {
     this.pessoa = pessoa;
-    this.endereco = pessoa.endereco ? pessoa.endereco[pessoa.endereco.length - 1] : new EnderecoEntity() ;
+    if (!this.pessoa.motorista ||  !this.pessoa.motorista.id) {
+      this.pessoa.motorista = new MotoristaEntity();
+    }
+    this.endereco = pessoa.endereco && pessoa.endereco.length > 0 ? pessoa.endereco[pessoa.endereco.length - 1] : new EnderecoEntity() ;
     this.cnh = pessoa.motorista && pessoa.motorista.cnh ? pessoa.motorista.cnh : new CnhEntity();
-    this.veiculo = pessoa.veiculo ? pessoa.veiculo[pessoa.veiculo.length - 1] : new VeiculoEntity();
+    this.veiculo = pessoa.veiculo && pessoa.veiculo.length ? pessoa.veiculo[pessoa.veiculo.length - 1] : new VeiculoEntity();
     this.perfil = pessoa.perfil ? pessoa.perfil[0] : new PerfilEntity();
   }
 
