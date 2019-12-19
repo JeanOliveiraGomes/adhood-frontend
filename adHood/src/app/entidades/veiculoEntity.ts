@@ -6,6 +6,7 @@ export class VeiculoEntity extends GenericEntity {
     anoFabricacao: number;
     cor: string;
     condicaoPintura: string;
+    marca: string;
 
     proprietario: PessoaEntity;
 
@@ -14,5 +15,6 @@ export class VeiculoEntity extends GenericEntity {
         this.placa = '';
         this.cor = '';
         this.condicaoPintura = '';
+        this.marca = '';
 }
 }

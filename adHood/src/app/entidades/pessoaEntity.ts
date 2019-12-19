@@ -2,6 +2,7 @@ import { EnderecoEntity } from "./enderecoEntity";
 import { VeiculoEntity } from "./veiculoEntity";
 import { GenericEntity } from "./genericEntity";
 import { PerfilEntity } from "./perfilEntity";
+import { MotoristaEntity } from './motoristaEntity';
 
 export class PessoaEntity extends GenericEntity {
     nome: string;
@@ -9,13 +10,15 @@ export class PessoaEntity extends GenericEntity {
     cpf: string;
     dataNascimento: Date;
     telefone: string;
-    endereco: EnderecoEntity;
+    endereco: EnderecoEntity[];
     veiculo: VeiculoEntity[];
+    motorista: MotoristaEntity;
     perfil: PerfilEntity[];
     isAccountNonExpired: boolean;
     isAccountNonLocked: boolean;
     isCredentialsNonExpired: boolean;
     isEnabled: boolean;
+    password: string;
 
     constructor() {
         super();
@@ -25,5 +28,8 @@ export class PessoaEntity extends GenericEntity {
         this.telefone = '';
         this.veiculo = [];
         this.perfil = [];
+        this.endereco = [];
+        this.motorista = new MotoristaEntity();
+        this.password = '';
     }
 }

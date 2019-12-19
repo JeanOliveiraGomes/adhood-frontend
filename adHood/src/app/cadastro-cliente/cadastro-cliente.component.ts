@@ -84,7 +84,8 @@ public buildForm() {
   }
 
   private editar(cliente) {
-    this.consultores = cliente.consultor;
+    this.consultores = [];
+    this.consultores.push(cliente.consultor);
     this.cliente = cliente;
     this.endereco = cliente.endereco[cliente.endereco.length - 1];
   }

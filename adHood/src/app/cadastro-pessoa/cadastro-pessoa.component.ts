@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ClienteEntity } from '../entidades/clienteEntity';
 import { EnderecoEntity } from '../entidades/enderecoEntity';
 import { PessoaService } from '../services/pessoaService/pessoa.service';
-import { ClienteService } from '../services/cienteService/cliente.service';
+import { PessoaEntity } from '../entidades/pessoaEntity';
+import { CnhEntity } from '../entidades/cnhEntity';
+import { VeiculoEntity } from '../entidades/veiculoEntity';
+import { PerfilEntity } from '../entidades/perfilEntity';
 
 @Component({
   selector: 'app-cadastro-pessoa',
@@ -16,89 +18,101 @@ export class CadastroPessoaComponent {
 
   private form: FormGroup;
 
-  private cliente: ClienteEntity = new ClienteEntity();
+  private pessoa: PessoaEntity = new PessoaEntity();
   private endereco: EnderecoEntity = new EnderecoEntity();
+  private cnh: CnhEntity = new CnhEntity();
+  private veiculo: VeiculoEntity = new VeiculoEntity();
+  private perfil: PerfilEntity = new PerfilEntity();
 
-  private consultores = [];
-
-  private clienteList: ClienteEntity[] = [];
+  private allPessoas: any = [];
 
   constructor(private fb: FormBuilder,
-              private pessoaService: PessoaService, private clienteService: ClienteService) {
+              private pessoaService: PessoaService) {
     this.buildForm();
-    this.popularClientes();
+    this.popularPessoas();
   }
 
 public buildForm() {
   this.form = this.fb.group({
-    nome: [this.cliente.nome, [Validators.required]],
-    segmento: [this.cliente.segmento, [Validators.required]],
+    //pessoa
+    nome: [this.pessoa.nome, [Validators.required]],
+    email: [this.pessoa.email, [Validators.required]],
+    cpf: [this.pessoa.cpf, [Validators.required]],
+    dataNascimento: [this.pessoa.dataNascimento, [Validators.required]],
+    telefone: [this.pessoa.telefone, [Validators.required]],
+    perfil: [this.perfil.perfil, [Validators.required]],
+    password: [this.pessoa.password],
+
+    //endereco
     bairro: [this.endereco.bairro, [Validators.required]],
     cep: [this.endereco.cep, [Validators.required]],
     complemento: [this.endereco.complemento],
-    consultor: [this.cliente.consultor],
     uf: [this.endereco.uf, [Validators.required]],
-    status: [this.cliente.status, [Validators.required]],
-    porte: [this.cliente.porte, [Validators.required]]
+
+    //motorista
+    motivacao: [this.pessoa.motorista.motivacao],
+    cnhValidade: [this.cnh.validade, [Validators.required]],
+
+    //veiculo
+    placa: [this.veiculo.placa, [Validators.required]],
+    anoFabricacao: [this.veiculo.anoFabricacao, [Validators.required]],
+    cor: [this.veiculo.cor, [Validators.required]],
+    condicaoPintura: [this.veiculo.condicaoPintura, [Validators.required]],
+    marca: [this.veiculo.marca, [Validators.required]],
+
   });
 }
 
-  private popularClientes() {
-    this.clienteService.findAll().subscribe(data => {
-      this.clienteList = data;
-    });
-  }
-
-  private onChangeSearch(event) {
-    console.log(event);
-    this.pessoaService.findByNome(event).subscribe(data => {
-      this.consultores = data;
-    }, error => {
-      alert(error.error.message);
+  private popularPessoas() {
+    this.pessoaService.findAll().subscribe(data => {
+      this.allPessoas = data;
     });
   }
 
   private onSubmit() {
-    if (!this.endereco.id) {
-      this.cliente.endereco.push(this.endereco);
+    if (!this.endereco.id && this.pessoa.endereco.length < 1) {
+      this.pessoa.endereco.push(this.endereco);
     }
-    //@ts-ignore-block
-    if ( this.cliente && this.cliente.consultor === '') {
-      this.cliente.consultor = null;
+    if (!this.veiculo.id && this.pessoa.veiculo.length < 1) {
+      this.pessoa.veiculo.push(this.veiculo);
     }
-    this.clienteService.save(this.cliente).subscribe(data => {
+    this.pessoa.motorista.cnh = this.cnh;
+    this.pessoa.perfil[0] = this.perfil;
+
+    console.log(this.pessoa);
+    this.pessoaService.save(this.pessoa).subscribe(data => {
       alert('Salvo com sucesso!');
-      this.popularClientes();
-      this.cliente = new ClienteEntity();
-      this.endereco = new EnderecoEntity();
+      this.popularPessoas();
+      this.limparForm();
     }, erro => {
-      alert('OPS!, SE VOCÊ TEM PERMISSÕES DE ADMINISTRADOR, VERIFIQUE OS DADOS E TENTE NOVAMENTE.');
+      alert('OPS! SE VOCÊ TEM PERMISSÕES DE ADMINISTRADOR, VERIFIQUE OS DADOS E TENTE NOVAMENTE.');
     });
   }
 
   private limparForm() {
-    this.cliente = new ClienteEntity();
+    this.pessoa = new PessoaEntity();
     this.endereco = new EnderecoEntity();
+    this.cnh = new CnhEntity();
+    this.veiculo = new VeiculoEntity();
+    this.perfil = new PerfilEntity();
   }
 
-  private editar(cliente) {
-    this.consultores = cliente.consultor;
-    this.cliente = cliente;
-    this.endereco = cliente.endereco[cliente.endereco.length - 1];
+  private editar(pessoa) {
+    this.pessoa = pessoa;
+    this.endereco = pessoa.endereco ? pessoa.endereco[pessoa.endereco.length - 1] : new EnderecoEntity() ;
+    this.cnh = pessoa.motorista && pessoa.motorista.cnh ? pessoa.motorista.cnh : new CnhEntity();
+    this.veiculo = pessoa.veiculo ? pessoa.veiculo[pessoa.veiculo.length - 1] : new VeiculoEntity();
+    this.perfil = pessoa.perfil.perfil ? pessoa.perfil.perfil : new PerfilEntity();
   }
 
   private deletarCliente(id: number) {
-    this.clienteService.delete(id).subscribe(data => {
-      this.popularClientes();
+    this.pessoaService.delete(id).subscribe(data => {
+      this.popularPessoas();
       alert('Deletado com sucesso!');
     }, error => {
-      alert('OPS! VERIFIQUE SUAS PERMISSÕES E TENTE NOVAMENTE');
+      alert('OPS! delete VERIFIQUE SUAS PERMISSÕES E TENTE NOVAMENTE');
     });
 
   }
-
-  public clenConsultor() {
-    this.cliente.consultor = null;
-  }
-
 }
+
