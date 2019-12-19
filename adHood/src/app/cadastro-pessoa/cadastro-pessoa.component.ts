@@ -102,7 +102,7 @@ public buildForm() {
     this.endereco = pessoa.endereco ? pessoa.endereco[pessoa.endereco.length - 1] : new EnderecoEntity() ;
     this.cnh = pessoa.motorista && pessoa.motorista.cnh ? pessoa.motorista.cnh : new CnhEntity();
     this.veiculo = pessoa.veiculo ? pessoa.veiculo[pessoa.veiculo.length - 1] : new VeiculoEntity();
-    this.perfil = pessoa.perfil.perfil ? pessoa.perfil.perfil : new PerfilEntity();
+    this.perfil = pessoa.perfil ? pessoa.perfil[0] : new PerfilEntity();
   }
 
   private deletarCliente(id: number) {
