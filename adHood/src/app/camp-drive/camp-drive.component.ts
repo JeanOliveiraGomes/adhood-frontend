@@ -65,17 +65,11 @@ export class CampDriveComponent {
 
 
   private onSubmit() {
-    // if (!this.campDrive.id) {
-    //   this.cliente.endereco.push(this.endereco);
-    // }
-    // //@ts-ignore-block
-    // if ( this.cliente && this.cliente.consultor === '') {
-    //   this.cliente.consultor = null;
-    // }
     this.campDriverService.save(this.campDrive).subscribe(data => {
       alert('Salvo com sucesso!');
       this.limparForm();
       this.campDrive = new CampDriverEntity();
+      this.popularCampDrivers();
     }, erro => {
       alert('OPS!, SE VOCÊ TEM PERMISSÕES DE ADMINISTRADOR, VERIFIQUE OS DADOS E TENTE NOVAMENTE.');
     });
@@ -85,11 +79,8 @@ export class CampDriveComponent {
     this.campDrive = new CampDriverEntity();
   }
 
-  private editar(cliente) {
-    // this.consultores = [];
-    // this.consultores.push(cliente.consultor);
-    // this.cliente = cliente;
-    // this.endereco = cliente.endereco[cliente.endereco.length - 1];
+  private editar(campDrive) {
+    this.campDrive = campDrive;
   }
 
   private deletarCliente(id: number) {
