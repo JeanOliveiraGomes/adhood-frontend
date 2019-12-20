@@ -4,9 +4,7 @@ import { ClienteEntity } from '../entidades/clienteEntity';
 import { PessoaService } from '../services/pessoaService/pessoa.service';
 import { ClienteService } from '../services/cienteService/cliente.service';
 import { EnderecoEntity } from '../entidades/enderecoEntity';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { PessoaEntity } from '../entidades/pessoaEntity';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-cadastro-campanha',

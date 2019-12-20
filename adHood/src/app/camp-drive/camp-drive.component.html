@@ -1,0 +1,88 @@
+<div class="container">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Data Inicio/Fim</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Motorista</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of campDriveList">
+          <th scope="row">{{item.dataInicio | date:'dd/MM/yyyy HH:mm:ss'}} - {{item.dataFim | date:'dd/MM/yyyy HH:mm:ss'}}</th>
+          <td>{{item.campanha && item.campanha.nome ? item.campanha.nome : ''}}</td>
+          <td>{{item.pessoa  && item.pessoa.nome ? item.pessoa.nome : ''}}</td>
+          <td>
+            <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
+            <button type="button" class="btn btn-danger" (click)="deletarCliente(item.id)" >Deletar</button>
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+    
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <br><b><h3>CADASTRO DE CAMPDRIVE {{campDrive.id ? '- Editando Cliente' : '- Novo Cliente'}}</h3></b><br>
+  
+
+      <div class="form-group">
+        <label>Data Início*</label>
+        <input formControlName="dataInicio" [(ngModel)]="campDrive.dataInicio" type="datetime-local" name="bdaytime">
+        <label>Data Fim*</label>
+        <input formControlName="dataFim" [(ngModel)]="campDrive.dataFim" type="datetime-local" name="bdaytime">
+    </div>
+
+  
+      <div class="form-group">
+        <label>Campanha</label>
+        <div class="ng-autocomplete">
+          <ng-autocomplete 
+            formControlName="campanha"
+            [(ngModel)]="campDrive.campanha"
+            [data]="clienteList"
+            (inputChanged)='onChangeSearch($event, "campanha")'
+            (inputCleared)="clenMotorista()"
+            [searchKeyword]="keyword"
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">                                 
+          </ng-autocomplete>
+           
+          <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.nome"></a>
+          </ng-template>
+           
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+          </ng-template>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label>Motorista</label>
+        <div class="ng-autocomplete">
+          <ng-autocomplete 
+            formControlName="pessoa"
+            [(ngModel)]="campDrive.pessoa"
+            [data]="motoristaList"
+            (inputChanged)='onChangeSearch($event, "motorista")'
+            (inputCleared)="clenMotorista()"
+            [searchKeyword]="keyword"
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">                                 
+          </ng-autocomplete>
+           
+          <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.nome"></a>
+          </ng-template>
+           
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+          </ng-template>
+          </div>
+      </div>
+
+      <button type="button" class="btn btn-primary" [disabled]="!form.valid" type="submit">{{campDrive.id ? 'Salvar Cliente Editado' : 'Criar Cliente'}}</button> 
+      <button *ngIf="campDrive.id" type="button" class="btn btn-success" (click)="limparForm()" >CRIA NOVO</button><br><br><br>
+    </form>
+  </div>

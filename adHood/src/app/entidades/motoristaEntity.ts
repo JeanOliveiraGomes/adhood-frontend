@@ -10,7 +10,6 @@ export class MotoristaEntity extends GenericEntity {
     cnh: CnhEntity;
     campDriver: CampDriverEntity[];
     historicoLocalizacao: HistoricoLocalizacaoEntity[];
-    pessoa: PessoaEntity;
 
     constructor() {
         super();
