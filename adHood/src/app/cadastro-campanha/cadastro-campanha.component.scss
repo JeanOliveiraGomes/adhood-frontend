@@ -2,6 +2,7 @@ form {
     padding: 5%;
     border-style: outset ;
     background-color: #1976d22b;
+    margin-top: 10px;
 }
 .container {
     width: 100%;
@@ -72,3 +73,12 @@ form {
   .slider.round:before {
     border-radius: 50%;
   }
+  
+  .my-custom-scrollbar {
+    position: relative;
+    max-height: 600px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }

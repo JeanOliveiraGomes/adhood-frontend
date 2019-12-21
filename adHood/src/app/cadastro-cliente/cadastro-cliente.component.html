@@ -1,33 +1,36 @@
 <div class="container">
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-bordered table-striped mb-0">
+      <thead>
+        <tr>
+          <th scope="col">Consultor</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Segmento</th>
+          <th scope="col">status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of clienteList">
+          <th scope="row">{{item.consultor ? item.consultor.nome : 'Não Especificado'}}</th>
+          <td>{{item.nome}}</td>
+          <td>{{item.segmento}}</td>
+          <td>{{item.status}}</td>
+          <td>
+            <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
+            <button type="button" class="btn btn-danger" (click)="deletarCliente(item.id)">Deletar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Consultor</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Segmento</th>
-        <th scope="col">status</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of clienteList">
-        <th scope="row">{{item.consultor ? item.consultor.nome : 'Não Especificado'}}</th>
-        <td>{{item.nome}}</td>
-        <td>{{item.segmento}}</td>
-        <td>{{item.status}}</td>
-        <td>
-          <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
-          <button type="button" class="btn btn-danger" (click)="deletarCliente(item.id)" >Deletar</button>
-        </td>
-      </tr> 
-    </tbody>
-  </table>
-  
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <br><b><h3>CADASTRO DE CLIENTE {{cliente.id ? '- Editando Cliente' : '- Novo Cliente'}}</h3></b><br>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <br><b>
+      <h3>CADASTRO DE CLIENTE {{cliente.id ? '- Editando Cliente' : '- Novo Cliente'}}</h3>
+    </b><br>
 
-    <div >
+    <div>
       <label>Status</label><br>
       <label class="switch">
         <input type="checkbox" formControlName="status" [(ngModel)]="cliente.status" checked>
@@ -36,23 +39,24 @@
     </div>
     <div class="form-group">
       <label>Nome*</label>
-      <input formControlName="nome" [(ngModel)]="cliente.nome" type="text" class="form-control" id="nome"  >
+      <input formControlName="nome" [(ngModel)]="cliente.nome" type="text" class="form-control" id="nome">
     </div>
     <div class="form-group">
       <label>Segmento*</label>
-      <input formControlName="segmento"  [(ngModel)]="cliente.segmento"type="text" class="form-control" id="segmento"  >
+      <input formControlName="segmento" [(ngModel)]="cliente.segmento" type="text" class="form-control" id="segmento">
     </div>
     <div class="form-group">
       <label>Bairro*</label>
-      <input formControlName="bairro" [(ngModel)]="endereco.bairro" type="text" class="form-control" id="bairro"  >
+      <input formControlName="bairro" [(ngModel)]="endereco.bairro" type="text" class="form-control" id="bairro">
     </div>
     <div class="form-group">
       <label>CEP*</label>
-      <input formControlName="cep" [(ngModel)]="endereco.cep" type="text" class="form-control" id="cep"  >
+      <input formControlName="cep" [(ngModel)]="endereco.cep" type="text" class="form-control" id="cep">
     </div>
     <div class="form-group">
       <label>Complemento</label>
-      <input formControlName="complemento" [(ngModel)]="endereco.complemento" type="text" class="form-control" id="complemento"  >
+      <input formControlName="complemento" [(ngModel)]="endereco.complemento" type="text" class="form-control"
+        id="complemento">
     </div>
     <div class="form-group">
       <label>UF*</label>
@@ -88,27 +92,21 @@
     </div>
 
     <div class="form-group">
-      <label  >Consultor</label>
+      <label>Consultor</label>
       <div class="ng-autocomplete">
-        <ng-autocomplete 
-          formControlName="consultor"
-          [(ngModel)]="cliente.consultor"
-          [data]="consultores"
-          (inputChanged)='onChangeSearch($event)'
-          (inputCleared)="clenConsultor()"
-          [searchKeyword]="keyword"
-          [itemTemplate]="itemTemplate"
-          [notFoundTemplate]="notFoundTemplate">                                 
+        <ng-autocomplete formControlName="consultor" [(ngModel)]="cliente.consultor" [data]="consultores"
+          (inputChanged)='onChangeSearch($event)' (inputCleared)="clenConsultor()" [searchKeyword]="keyword"
+          [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
         </ng-autocomplete>
-         
+
         <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.nome"></a>
+          <a [innerHTML]="item.nome"></a>
         </ng-template>
-         
+
         <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
+          <div [innerHTML]="notFound"></div>
         </ng-template>
-        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="exampleFormControlSelect1">Porte*</label>
@@ -118,7 +116,9 @@
         <option value="MULTINACIONAL">Multinacional</option>
       </select>
     </div>
-    <button type="button" class="btn btn-primary" [disabled]="!form.valid" type="submit">{{cliente.id ? 'Salvar Cliente Editado' : 'Criar Cliente'}}</button> 
-    <button *ngIf="cliente.id" type="button" class="btn btn-success" (click)="limparForm()" >CRIA NOVO</button><br><br><br>
+    <button type="button" class="btn btn-primary" [disabled]="!form.valid"
+      type="submit">{{cliente.id ? 'Salvar Cliente Editado' : 'Criar Cliente'}}</button>
+    <button *ngIf="cliente.id" type="button" class="btn btn-success" (click)="limparForm()">CRIA
+      NOVO</button><br><br><br>
   </form>
 </div>

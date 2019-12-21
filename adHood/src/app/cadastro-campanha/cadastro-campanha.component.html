@@ -1,28 +1,30 @@
 <div class="container">
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Cliente Nome</th>
-                <th scope="col">Data Início/ Data Fim</th>
-                <th scope="col">Valor da Campanha</th>
-                <th scope="col">status</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of campanhaList">
-                <td>{{item.nome}}</td>
-                <td>{{item.dataInicio | date:'dd/MM/yyyy HH:mm:ss'}} - {{item.dataFim | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{item.valorCampanha}}</td>
-                <td>{{item.status}}</td>
-                <td>
-                    <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
-                    <button type="button" class="btn btn-danger" (click)="deletarCampanha(item.id)">Deletar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0">
+            <thead>
+                <tr>
+                    <th scope="col">Cliente Nome</th>
+                    <th scope="col">Data Início/ Data Fim</th>
+                    <th scope="col">Valor da Campanha</th>
+                    <th scope="col">status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of campanhaList">
+                    <td>{{item.nome}}</td>
+                    <td>{{item.dataInicio | date:'dd/MM/yyyy HH:mm:ss'}} - {{item.dataFim | date:'dd/MM/yyyy HH:mm:ss'}}
+                    </td>
+                    <td>{{item.valorCampanha}}</td>
+                    <td>{{item.status}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
+                        <button type="button" class="btn btn-danger" (click)="deletarCampanha(item.id)">Deletar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <br><b>
@@ -53,9 +55,9 @@
         <div class="form-group">
             <label>Adicinar Cliente</label>
             <div class="ng-autocomplete">
-                <ng-autocomplete [data]="clienteList"
-                    (inputChanged)='onChangeSearch($event)' (selected)='adicionarCliente($event)' (inputCleared)="clenConsultor()" [searchKeyword]="keyword"
-                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                <ng-autocomplete [data]="clienteList" (inputChanged)='onChangeSearch($event)'
+                    (selected)='adicionarCliente($event)' [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
 
                 <ng-template #itemTemplate let-item>
@@ -70,26 +72,26 @@
         <div class="form-group">
             <table class="table table-striped">
                 <thead>
-                  <tr>
-                    <th scope="col">Consultor</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Segmento</th>
-                    <th scope="col">status</th>
-                    <th>Ações</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">Consultor</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Segmento</th>
+                        <th scope="col">status</th>
+                        <th>Ações</th>
+                    </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of campanha.cliente">
-                    <th scope="row">{{item.consultor ? item.consultor.nome : 'Não Especificado'}}</th>
-                    <td>{{item.nome}}</td>
-                    <td>{{item.segmento}}</td>
-                    <td>{{item.status}}</td>
-                    <td>
-                      <button type="button" class="btn btn-danger" (click)="deletarCliente(item)">Remover</button>
-                    </td>
-                  </tr> 
+                    <tr *ngFor="let item of campanha.cliente">
+                        <th scope="row">{{item.consultor ? item.consultor.nome : 'Não Especificado'}}</th>
+                        <td>{{item.nome}}</td>
+                        <td>{{item.segmento}}</td>
+                        <td>{{item.status}}</td>
+                        <td>
+                            <button type="button" class="btn btn-danger" (click)="deletarCliente(item)">Remover</button>
+                        </td>
+                    </tr>
                 </tbody>
-              </table>
+            </table>
         </div>
 
         <button type="button" class="btn btn-primary" [disabled]="!form.valid"
