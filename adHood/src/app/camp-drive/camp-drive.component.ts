@@ -33,8 +33,8 @@ export class CampDriveComponent {
 
   public buildForm() {
     this.form = this.fb.group({
-      dataInicio: [this.campDrive.dataInicio, [Validators.required]],
-      dataFim: [this.campDrive.dataFim, [Validators.required]],
+      // dataInicio: [this.campDrive.dataInicio, [Validators.required]],
+      // dataFim: [this.campDrive.dataFim, [Validators.required]],
       campanha: [this.campDrive.campanha, [Validators.required]],
       pessoa: [this.campDrive.pessoa, [Validators.required]],
     });

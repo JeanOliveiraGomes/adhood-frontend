@@ -26,16 +26,16 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <br><b>
-      <h3>CADASTRO DE CAMPDRIVE {{campDrive.id ? '- Editando Cliente' : '- Novo Cliente'}}</h3>
+      <h3>CADASTRO DE CAMPDRIVER {{campDrive.id ? '- Editando CampDriver' : '- Novo CampDriver'}}</h3>
     </b><br>
 
-
+<!-- 
     <div class="form-group">
       <label>Data Início*</label>
       <input formControlName="dataInicio" [(ngModel)]="campDrive.dataInicio" type="datetime-local" name="bdaytime">
       <label>Data Fim*</label>
       <input formControlName="dataFim" [(ngModel)]="campDrive.dataFim" type="datetime-local" name="bdaytime">
-    </div>
+    </div> -->
 
 
     <div class="form-group">
@@ -75,7 +75,7 @@
     </div>
 
     <button type="button" class="btn btn-primary" [disabled]="!form.valid"
-      type="submit">{{campDrive.id ? 'Salvar Cliente Editado' : 'Criar Cliente'}}</button>
+      type="submit">{{campDrive.id ? 'Salvar CampDriver Editado' : 'Criar CampDriver'}}</button>
     <button *ngIf="campDrive.id" type="button" class="btn btn-success" (click)="limparForm()">CRIA
       NOVO</button><br><br><br>
   </form>

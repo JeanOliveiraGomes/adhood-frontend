@@ -28,7 +28,7 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <br><b>
-            <h3>CADASTRO DE CAMPANHA {{campanha.id ? '- EDITANDO CAMPANHA' : '- NOVA CAMPANHA'}}</h3>
+            <h3>CADASTRO DE CAMPANHA {{campanha.id ? '- Editando Campanha' : '- Nova Campanha'}}</h3>
         </b><br>
 
         <div>
@@ -95,7 +95,7 @@
         </div>
 
         <button type="button" class="btn btn-primary" [disabled]="!form.valid"
-            type="submit">{{campanha.id ? 'Salvar Cliente Editado' : 'Criar Cliente'}}</button>
+            type="submit">{{campanha.id ? 'Salvar Campanha Editada' : 'Criar Campanha'}}</button>
         <button *ngIf="campanha.id" type="button" class="btn btn-success" (click)="limparForm()">CRIA
             NOVO</button><br><br><br>
     </form>
